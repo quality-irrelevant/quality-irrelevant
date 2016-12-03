@@ -6,5 +6,5 @@ addons:
           - sshpass
 after_success:
   - export SSHPASS=$DEPLOY_PASSWORD
-  - sshpass -e scp target/website.jar qualityirrelevant@qualityirrelevant.com:/home/qualityirrelevant
-  - sshpass -e ssh qualityirrelevant@qualityirrelevant.com /home/qualityirrelevant/deploy.sh
+  - sshpass -e scp target/website.jar qualityirrelevant@qualityirrelevant.com:/home/qualityirrelevant -o stricthostkeychecking=no
+  - sshpass -e ssh qualityirrelevant@qualityirrelevant.com /home/qualityirrelevant/deploy.sh -o stricthostkeychecking=no
