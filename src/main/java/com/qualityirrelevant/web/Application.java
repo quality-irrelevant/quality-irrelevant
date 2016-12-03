@@ -15,8 +15,10 @@ import static spark.Spark.post;
 
 public class Application {
   public static void main(String[] args) {
-    GreenMail greenMail = new GreenMail(ServerSetup.SMTP);
-    greenMail.start();
+    if (args.length > 0 && args[0].equals("DEV")) {
+      GreenMail greenMail = new GreenMail(ServerSetup.SMTP);
+      greenMail.start();
+    }
 
     FreeMarkerEngine freeMarkerEngine = new FreeMarkerEngine();
     Configuration freeMarkerConfiguration = new Configuration();
