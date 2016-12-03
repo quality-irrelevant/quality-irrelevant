@@ -1,7 +1,6 @@
 language: java
 jdk: oraclejdk8
-deploy:
-  provider: script
-  script: src/deploy/deploy.sh
-  on:
-    branch: master
+after_success:
+  - export SSHPASS=$DEPLOY_PASSWORD
+  - sshpass -e scp target/website.jar qualityirrelevant@qualityirrelevant.com:~/
+  - sshpass -e ssh qualityirrelevant@qualityirrelevant.com ~/deploy.sh
