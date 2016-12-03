@@ -2,6 +2,6 @@ language: java
 jdk: oraclejdk8
 deploy:
   provider: script
-  script: scripts/deploy.rb
+  script: src/deploy/deploy.rb
   on:
     branch: master
