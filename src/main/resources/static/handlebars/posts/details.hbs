@@ -1,0 +1,15 @@
+{{#each (limit posts 1)}}
+  <img class="thumbnail" src="/img/icon.png" width="250" height="250"/>
+
+  <div class="post-info">
+    <h2>{{title}}</h2>
+    <time><img class="icon" src="/img/calendar.png" width="20"
+               height="20"/>{{publishedOn}}</time>
+  </div>
+
+  <audio controls>
+    <source src="{{url}}" type='audio/mp3'>
+  </audio>
+
+  <p class="description">{{description}}</p>
+{{/each}}
