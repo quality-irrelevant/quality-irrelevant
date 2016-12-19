@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:itunes="https://www.itunes.com/dtds/podcast-1.0.dtd">
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
   <channel>
     <title>Quality Irrelevant</title>
     <link>https://qualityirrelevant.com</link>
@@ -14,6 +14,7 @@
       <itunes:email>qualityirrelevant@gmail.com</itunes:email>
     </itunes:owner>
     <itunes:author>Quality Irrelevant</itunes:author>
+    <itunes:keywords>quality, irrelevant, funny</itunes:keywords>
     <itunes:explicit>yes</itunes:explicit>
     <itunes:image href="https://qualityirrelevant.com/media/01.PNG"/>
     <image>
@@ -22,6 +23,21 @@
       <link>https://qualityirrelevant.com</link>
     </image>
     <itunes:category text="Comedy"/>
+	<item>
+      <guid isPermaLink="false">https://qualityirrelevant.com/media/016.mp3</guid>
+      <title>#16: Rafiki's Dirty Fruit</title>
+      <pubDate>Mon, 05 Dec 2016 10:00:00 +0000</pubDate>
+      <link>https://qualityirrelevant.com/media/016.mp3</link>
+      <id>016</id>
+      <itunes:duration>01:20:44</itunes:duration>
+      <itunes:author>Quality Irrelevant</itunes:author>
+      <itunes:explicit>yes</itunes:explicit>
+      <itunes:summary>Quality Irrelevant goes to the movies. We have a trailer for some reason, Phil introduces Phil’s Phun Philm Phacts and Theo launches a new product with a brilliant movie tie-in: Fuck Water! Coming to cinemas and newsagents near you!</itunes:summary>
+      <itunes:subtitle>Quality Irrelevant goes to the movies. We have a …</itunes:subtitle>
+      <description>Quality Irrelevant goes to the movies. We have a trailer for some reason, Phil introduces Phil’s Phun Philm Phacts and Theo launches a new product with a brilliant movie tie-in: Fuck Water! Coming to cinemas and newsagents near you!</description>
+      <enclosure type="audio/mpeg" url="https://qualityirrelevant.com/media/016.mp3" length="64694468"/>
+      <itunes:image href="https://qualityirrelevant.com/media/02.PNG"/>
+    </item>
     <item>
       <guid isPermaLink="false">https://qualityirrelevant.com/media/015.mp3</guid>
       <title>#15: Ron Perlman Is In Half Though</title>
@@ -32,7 +48,7 @@
       <itunes:author>Quality Irrelevant</itunes:author>
       <itunes:explicit>yes</itunes:explicit>
       <itunes:summary>It’s war! Quality Irrelevant is now the official Ministry of War Correspondence. The duo come up with a cross-media marketing scheme to recruit a child army for the war effort, and nobody gets prosecuted for war crimes.</itunes:summary>
-      <itunes:subtitle>It’s war! Quality Irrelevant is now the official</itunes:subtitle>
+      <itunes:subtitle>It’s war! Quality Irrelevant is now the official …</itunes:subtitle>
       <description>It’s war! Quality Irrelevant is now the official Ministry of War Correspondence. The duo come up with a cross-media marketing scheme to recruit a child army for the war effort, and nobody gets prosecuted for war crimes.</description>
       <enclosure type="audio/mpeg" url="https://qualityirrelevant.com/media/015.mp3" length="66202491"/>
       <itunes:image href="https://qualityirrelevant.com/media/02.PNG"/>
@@ -40,7 +56,7 @@
     <item>
       <guid isPermaLink="false">https://qualityirrelevant.com/media/014.mp3</guid>
       <title>#14: Blocking Mulan</title>
-      <pubDate>Tue, 09 Nov 2016 10:00:00 +0000</pubDate>
+      <pubDate>Wed, 09 Nov 2016 10:00:00 +0000</pubDate>
       <link>https://qualityirrelevant.com/media/014.mp3</link>
       <id>014</id>
       <itunes:duration>01:04:44</itunes:duration>
