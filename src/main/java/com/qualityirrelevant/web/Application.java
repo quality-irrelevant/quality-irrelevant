@@ -14,8 +14,16 @@ import static spark.Spark.get;
 import static spark.Spark.post;
 
 public class Application {
-  public static void main(String[] args) {
-    if (args.length > 0 && args[0].equals("DEV")) {
+  public static String baseDirectory = "";
+  public static void main(String[] args) throws Exception {
+    if (args.length > 0) {
+      authorizedIp = args[0];
+    }
+
+    if (args.length > 1 && args[1].equals("DEV")) {
+      logger.info("Runnin' in DEV environment");
+
+      baseDirectory = "target/";
       GreenMail greenMail = new GreenMail(ServerSetup.SMTP);
       greenMail.start();
     }
