@@ -24,7 +24,7 @@
       <li><a href="/art">ART</a></li>
       <li><a href="/contact">CONTACT</a></li>
       <li><a href="//itunes.apple.com/gb/podcast/quality-irrelevant/id1104231362?mt=2">ITUNES</a></li>
-      <li><a href="//qualityirrelevant.com/rss.xml">RSS</a></li>
+      <li><a href="/rss.xml">RSS</a></li>
       <li><a href="//twitter.com/QIrrelevant">@QIRRELEVANT</a></li>
     </ul>
     <p class="about-text">
