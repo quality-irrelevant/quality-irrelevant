@@ -6,5 +6,7 @@ addons:
           - sshpass
 after_success:
   - export SSHPASS=$DEPLOY_PASSWORD
-  - sshpass -e scp -o stricthostkeychecking=no target/website.jar qualityirrelevant@qualityirrelevant.com:/home/qualityirrelevant
-  - sshpass -e ssh -o stricthostkeychecking=no -n -f qualityirrelevant@qualityirrelevant.com "sudo systemctl restart qualityirrelevant"
+  - export ENVIRONMENT_NAME=preprod
+  - test $TRAVIS_BRANCH = "prod" && export ENVIRONMENT_NAME=prod
+  - sshpass -e scp -o stricthostkeychecking=no target/website.jar qualityirrelevant@qualityirrelevant.com:/home/qualityirrelevant/$ENVIRONMENT_NAME
+  - sshpass -e ssh -o stricthostkeychecking=no -n -f qualityirrelevant@qualityirrelevant.com "sudo systemctl restart qualityirrelevant-$ENVIRONMENT_NAME"
