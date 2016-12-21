@@ -27,6 +27,7 @@ import static spark.Spark.post;
 public class Application {
   public static String baseDirectory = "";
   public static String baseUrl = "https://qualityirrelevant.com";
+  public static Integer port = 4567;
   public static String authorizedIp = "";
   private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
@@ -39,14 +40,15 @@ public class Application {
       logger.info("Runnin' in DEV environment");
 
       baseDirectory = "target/";
-      baseUrl = "http://localhost:4567";
+      baseUrl = "http://localhost:" + port;
 
       GreenMail greenMail = new GreenMail(ServerSetup.SMTP);
       greenMail.start();
     } else if (args.length > 1 && args[1].equals("PREPROD")) {
       logger.info("Runnin' in PREPROD environment");
 
-      baseUrl = "https://dev.qualityirrelevant.com:4577";
+      port = 4577;
+      baseUrl = "https://dev.qualityirrelevant.com:" + port;
     }
 
     DatabaseService databaseService = new DatabaseService();
@@ -77,6 +79,7 @@ public class Application {
       new File(baseDirectory + "external/media/episodes/" + id7 + ".mp3").createNewFile();
     }
 
+    Spark.port(port);
     Spark.staticFiles.location("/static");
     Spark.staticFiles.externalLocation(baseDirectory + "external");
 
