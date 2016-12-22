@@ -3,7 +3,7 @@
   <channel>
     <title>Quality Irrelevant</title>
     <link>https://qualityirrelevant.com</link>
-    <pubDate>Sat, 16 Apr 2016 11:00:00 +0000</pubDate>
+    <pubDate>Thu, 22 Dec 2016 09:22:00 +0000</pubDate>
     <ttl>60</ttl>
     <language>en</language>
     <copyright>All rights reserved</copyright>
@@ -23,7 +23,22 @@
       <link>https://qualityirrelevant.com</link>
     </image>
     <itunes:category text="Comedy"/>
-	<item>
+    <item>
+      <guid isPermaLink="false">https://qualityirrelevant.com/media/017.mp3</guid>
+      <title>#17: You Clogged My Veins With Doughnut</title>
+      <pubDate>Thu, 22 Dec 2016 10:00:00 +0000</pubDate>
+      <link>https://qualityirrelevant.com/media/017.mp3</link>
+      <id>017</id>
+      <itunes:duration>00:59:18</itunes:duration>
+      <itunes:author>Quality Irrelevant</itunes:author>
+      <itunes:explicit>yes</itunes:explicit>
+      <itunes:summary>It’s a threeway. Quality Irrelevant is joined by its first ever guest, Chris! Theo gets far too excited pitching his film about twins, Phil comes to terms with his position as a hostage, and Chris becomes Captain America (and then abandons the podcast).</itunes:summary>
+      <itunes:subtitle>It’s a threeway. Quality Irrelevant is joined by …</itunes:subtitle>
+      <description>It’s a threeway. Quality Irrelevant is joined by its first ever guest, Chris! Theo gets far too excited pitching his film about twins, Phil comes to terms with his position as a hostage, and Chris becomes Captain America (and then abandons the podcast).</description>
+      <enclosure type="audio/mpeg" url="https://qualityirrelevant.com/media/017.mp3" length="49161223"/>
+      <itunes:image href="https://qualityirrelevant.com/media/02.PNG"/>
+    </item>
+    <item>
       <guid isPermaLink="false">https://qualityirrelevant.com/media/016.mp3</guid>
       <title>#16: Rafiki's Dirty Fruit</title>
       <pubDate>Mon, 05 Dec 2016 10:00:00 +0000</pubDate>
