@@ -4,7 +4,7 @@
 <footer role="content-info" class="site-footer">
   <nav class="nav-footer">
     <p class="about-text-footer">
-      A podcast for lovely boys.
+      A podcast for the dispositionally broken.
     </p>
     <p class="copyright-footer">Copyright © Me</p>
   </nav>
