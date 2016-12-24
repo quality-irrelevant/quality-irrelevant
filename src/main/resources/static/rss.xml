@@ -24,6 +24,21 @@
     </image>
     <itunes:category text="Comedy"/>
     <item>
+      <guid isPermaLink="false">https://qualityirrelevant.com/media/018.mp3</guid>
+      <title>#18: The Christmas Exorcism</title>
+      <pubDate>Sat, 24 Dec 2016 10:00:00 +0000</pubDate>
+      <link>https://qualityirrelevant.com/media/018.mp3</link>
+      <id>018</id>
+      <itunes:duration>01:05:20</itunes:duration>
+      <itunes:author>Quality Irrelevant</itunes:author>
+      <itunes:explicit>yes</itunes:explicit>
+      <itunes:summary>It’s the Christmas Special. Quality Irrelevant is joined this week by their second guest ever, Elena. Theo attempts to fence his patented Hot Spicy Moled Wine, Elena extols the virtues of Fuckapple, and Phil is definitely the Scrooge of the podcast and gets haunted by three Christmas ghosts.</itunes:summary>
+      <itunes:subtitle>It’s the Christmas Special. Quality Irrelevant is…</itunes:subtitle>
+      <description>It’s the Christmas Special. Quality Irrelevant is joined this week by their second guest ever, Elena. Theo attempts to fence his patented Hot Spicy Moled Wine, Elena extols the virtues of Fuckapple, and Phil is definitely the Scrooge of the podcast and gets haunted by three Christmas ghosts.</description>
+      <enclosure type="audio/mpeg" url="https://qualityirrelevant.com/media/018.mp3" length="53722840"/>
+      <itunes:image href="https://qualityirrelevant.com/media/02.PNG"/>
+    </item>
+    <item>
       <guid isPermaLink="false">https://qualityirrelevant.com/media/017.mp3</guid>
       <title>#17: You Clogged My Veins With Doughnut</title>
       <pubDate>Thu, 22 Dec 2016 10:00:00 +0000</pubDate>
