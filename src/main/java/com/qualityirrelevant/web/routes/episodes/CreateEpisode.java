@@ -4,6 +4,7 @@ import com.mpatric.mp3agic.Mp3File;
 import com.qualityirrelevant.web.Application;
 import com.qualityirrelevant.web.models.Episode;
 import com.qualityirrelevant.web.routes.FreeMarkerRoute;
+import com.qualityirrelevant.web.security.Authentication;
 import com.qualityirrelevant.web.services.DatabaseService;
 import spark.ModelAndView;
 import spark.Request;
@@ -20,8 +21,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CreateEpisode extends FreeMarkerRoute {
   private final DatabaseService databaseService;
@@ -33,12 +32,7 @@ public class CreateEpisode extends FreeMarkerRoute {
 
   @Override
   public ModelAndView run(Request request, Response response) throws Exception {
-    if (!request.ip().equals(Application.authorizedIp)) {
-      Map<String, String> model = new HashMap<>();
-      model.put("errorMessage", "Fuck off, you're not allowed here sonny jim!");
-      response.status(403);
-      return new ModelAndView(model, "error.ftl");
-    }
+    Authentication.authenticate(request, response);
 
     MultipartConfigElement configElement = new MultipartConfigElement(System.getenv("java.io.tmpdir"));
     request.attribute("org.eclipse.jetty.multipartConfig", configElement);

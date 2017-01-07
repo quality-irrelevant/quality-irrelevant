@@ -11,15 +11,19 @@ import com.qualityirrelevant.web.routes.episodes.IndexEpisode;
 import com.qualityirrelevant.web.routes.episodes.NewEpisode;
 import com.qualityirrelevant.web.routes.episodes.RssEpisode;
 import com.qualityirrelevant.web.routes.episodes.ShowEpisode;
+import com.qualityirrelevant.web.security.UnauthenticatedException;
 import com.qualityirrelevant.web.services.DatabaseService;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import spark.ModelAndView;
 import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -82,6 +86,14 @@ public class Application {
     Spark.port(port);
     Spark.staticFiles.location("/static");
     Spark.staticFiles.externalLocation(baseDirectory + "external");
+
+    Spark.exception(UnauthenticatedException.class, (exception, request, response) -> {
+      Map<String, String> model = new HashMap<>();
+      model.put("errorMessage", exception.getMessage());
+      response.status(403);
+      ModelAndView modelAndView = new ModelAndView(model, "error.ftl");
+      response.body(freeMarkerEngine.render(modelAndView));
+    });
 
     Spark.exception(Exception.class, (exception, request, response) -> {
       logger.error("error encountered", exception);
