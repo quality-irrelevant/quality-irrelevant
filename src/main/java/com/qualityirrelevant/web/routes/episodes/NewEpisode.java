@@ -22,6 +22,8 @@ public class NewEpisode extends FreeMarkerRoute {
   public ModelAndView run(Request request, Response response) throws Exception {
     logger.info("Authorised IP:" + Application.authorizedIp);
     logger.info("Current IP:" + request.ip());
+    logger.info("X-Forwarded-For:" + request.headers("X-Forwarded-For"));
+
 
     if (!request.ip().equals(Application.authorizedIp)) {
       Map<String, String> model = new HashMap<>();
