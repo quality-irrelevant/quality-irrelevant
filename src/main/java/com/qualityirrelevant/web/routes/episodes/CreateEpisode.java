@@ -32,7 +32,7 @@ public class CreateEpisode extends FreeMarkerRoute {
 
   @Override
   public ModelAndView run(Request request, Response response) throws Exception {
-    Authentication.authenticate(request, response);
+    Authentication.authenticate(request);
 
     MultipartConfigElement configElement = new MultipartConfigElement(System.getenv("java.io.tmpdir"));
     request.attribute("org.eclipse.jetty.multipartConfig", configElement);

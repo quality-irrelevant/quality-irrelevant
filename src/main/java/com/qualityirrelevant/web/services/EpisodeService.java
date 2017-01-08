@@ -42,4 +42,8 @@ public class EpisodeService {
   public void update(Episode episode) {
     databaseService.execute("UPDATE episodes SET name = '" + episode.getName() + "', description = '" + episode.getDescription() + "' WHERE id = '" + episode.getId() + "'");
   }
+
+  public void delete(Episode episode) {
+    databaseService.execute("DELETE FROM episodes WHERE id = '" + episode.getId() + "'");
+  }
 }

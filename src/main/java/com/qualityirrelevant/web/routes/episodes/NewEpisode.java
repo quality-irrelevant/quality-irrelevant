@@ -17,7 +17,7 @@ public class NewEpisode extends FreeMarkerRoute {
 
   @Override
   public ModelAndView run(Request request, Response response) throws Exception {
-    Authentication.authenticate(request, response);
+    Authentication.authenticate(request);
 
     Map<String, String> model = new HashMap<>();
     model.put("name", "");

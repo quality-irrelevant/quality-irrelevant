@@ -21,7 +21,7 @@ public class EditEpisode extends FreeMarkerRoute {
 
   @Override
   public ModelAndView run(Request request, Response response) throws Exception {
-    Authentication.authenticate(request, response);
+    Authentication.authenticate(request);
 
     String id = request.params(":id");
     Map<String, Object> model = new HashMap<>();

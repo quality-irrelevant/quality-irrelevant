@@ -7,6 +7,7 @@ import com.qualityirrelevant.web.routes.GetContact;
 import com.qualityirrelevant.web.routes.Index;
 import com.qualityirrelevant.web.routes.PostContact;
 import com.qualityirrelevant.web.routes.episodes.CreateEpisode;
+import com.qualityirrelevant.web.routes.episodes.DeleteEpisode;
 import com.qualityirrelevant.web.routes.episodes.EditEpisode;
 import com.qualityirrelevant.web.routes.episodes.IndexEpisode;
 import com.qualityirrelevant.web.routes.episodes.NewEpisode;
@@ -109,12 +110,15 @@ public class Application {
     get("/contact", new GetContact(freeMarkerEngine, "contact.ftl"));
     post("/contact", new PostContact(freeMarkerEngine, "contact.ftl"));
     get("/contact/success", new FreeMarkerRoute(freeMarkerEngine, "contact-success.ftl"));
+
     get("/episodes", new IndexEpisode(freeMarkerEngine, databaseService, "episodes/index.ftl"));
+    get("/rss.xml", new RssEpisode(freeMarkerEngine, databaseService, "rss.ftl"));
     get("/episodes/new", new NewEpisode(freeMarkerEngine, "episodes/new.ftl"));
     post("/episodes", new CreateEpisode(freeMarkerEngine, episodeService, "episodes/new.ftl"));
     get("/episodes/:id/edit", new EditEpisode(freeMarkerEngine, episodeService, "episodes/edit.ftl"));
+    post("/episodes/:id/delete", new DeleteEpisode(episodeService));
     post("/episodes/:id", new UpdateEpisode(freeMarkerEngine, episodeService, "episodes/edit.ftl"));
     get("/episodes/:id", new ShowEpisode(freeMarkerEngine, episodeService, "episodes/show.ftl"));
-    get("/rss.xml", new RssEpisode(freeMarkerEngine, databaseService, "rss.ftl"));
+
   }
 }

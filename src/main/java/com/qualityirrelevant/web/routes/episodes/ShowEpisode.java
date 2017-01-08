@@ -1,6 +1,7 @@
 package com.qualityirrelevant.web.routes.episodes;
 
 import com.qualityirrelevant.web.routes.FreeMarkerRoute;
+import com.qualityirrelevant.web.security.Authentication;
 import com.qualityirrelevant.web.services.EpisodeService;
 import spark.ModelAndView;
 import spark.Request;
@@ -23,6 +24,7 @@ public class ShowEpisode extends FreeMarkerRoute {
     String id = request.params(":id");
     Map<String, Object> model = new HashMap<>();
     model.put("episode", episodeService.find(id));
+    model.put("authenticated", Authentication.isAuthenticated(request));
     return new ModelAndView(model, getViewName());
   }
 }

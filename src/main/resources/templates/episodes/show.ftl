@@ -15,4 +15,10 @@
 
 <p class="description">${episode.description}</p>
 
+<#if authenticated>
+  <form method="post" action="/episodes/${episode.id}/delete">
+    <input class="button" type="submit" value="Delete">
+  </form>
+</#if>
+
 <#include "../include/footer.ftl">
