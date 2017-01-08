@@ -33,4 +33,13 @@ public class EpisodeService {
   public Episode find(String id) {
     return find(Long.parseLong(id));
   }
+
+  public Long create(Episode episode) {
+    return databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size) VALUES ('" + episode.getName() +
+        "', '" + episode.getDescription() + "', datetime('now') || '.000', " + episode.getDuration() + ", " + episode.getSize() + ")");
+  }
+
+  public void update(Episode episode) {
+    databaseService.execute("UPDATE episodes SET name = '" + episode.getName() + "', description = '" + episode.getDescription() + "' WHERE id = '" + episode.getId() + "'");
+  }
 }

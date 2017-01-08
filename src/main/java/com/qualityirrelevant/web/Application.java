@@ -12,6 +12,7 @@ import com.qualityirrelevant.web.routes.episodes.IndexEpisode;
 import com.qualityirrelevant.web.routes.episodes.NewEpisode;
 import com.qualityirrelevant.web.routes.episodes.RssEpisode;
 import com.qualityirrelevant.web.routes.episodes.ShowEpisode;
+import com.qualityirrelevant.web.routes.episodes.UpdateEpisode;
 import com.qualityirrelevant.web.security.UnauthenticatedException;
 import com.qualityirrelevant.web.services.DatabaseService;
 import com.qualityirrelevant.web.services.EpisodeService;
@@ -110,8 +111,9 @@ public class Application {
     get("/contact/success", new FreeMarkerRoute(freeMarkerEngine, "contact-success.ftl"));
     get("/episodes", new IndexEpisode(freeMarkerEngine, databaseService, "episodes/index.ftl"));
     get("/episodes/new", new NewEpisode(freeMarkerEngine, "episodes/new.ftl"));
-    post("/episodes", new CreateEpisode(freeMarkerEngine, databaseService, "episodes/new.ftl"));
+    post("/episodes", new CreateEpisode(freeMarkerEngine, episodeService, "episodes/new.ftl"));
     get("/episodes/:id/edit", new EditEpisode(freeMarkerEngine, episodeService, "episodes/edit.ftl"));
+    post("/episodes/:id", new UpdateEpisode(freeMarkerEngine, episodeService, "episodes/edit.ftl"));
     get("/episodes/:id", new ShowEpisode(freeMarkerEngine, episodeService, "episodes/show.ftl"));
     get("/rss.xml", new RssEpisode(freeMarkerEngine, databaseService, "rss.ftl"));
   }

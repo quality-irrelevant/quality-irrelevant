@@ -46,4 +46,14 @@ public class DatabaseService {
   private String connectionUrl() {
     return "jdbc:sqlite:" + Application.baseDirectory + "database.sqlite";
   }
+
+  public void execute(String sql) {
+    try {
+      Connection connection = DriverManager.getConnection(connectionUrl());
+      Statement statement = connection.createStatement();
+      statement.executeUpdate(sql);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

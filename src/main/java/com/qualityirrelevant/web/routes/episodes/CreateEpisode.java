@@ -5,7 +5,7 @@ import com.qualityirrelevant.web.Application;
 import com.qualityirrelevant.web.models.Episode;
 import com.qualityirrelevant.web.routes.FreeMarkerRoute;
 import com.qualityirrelevant.web.security.Authentication;
-import com.qualityirrelevant.web.services.DatabaseService;
+import com.qualityirrelevant.web.services.EpisodeService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -23,11 +23,11 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
 public class CreateEpisode extends FreeMarkerRoute {
-  private final DatabaseService databaseService;
+  private final EpisodeService episodeService;
 
-  public CreateEpisode(FreeMarkerEngine freeMarkerEngine, DatabaseService databaseService, String viewName) {
+  public CreateEpisode(FreeMarkerEngine freeMarkerEngine, EpisodeService episodeService, String viewName) {
     super(freeMarkerEngine, viewName);
-    this.databaseService = databaseService;
+    this.episodeService = episodeService;
   }
 
   @Override
@@ -49,9 +49,7 @@ public class CreateEpisode extends FreeMarkerRoute {
     episode.setDescription(multipartParam("description", request));
     episode.setDuration(mp3File.getLengthInSeconds());
     episode.setSize(tempFile.toFile().length());
-    Long id = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size) VALUES ('" + episode.getName() +
-        "', '" + episode.getDescription() + "', datetime('now') || '.000', " + episode.getDuration() + ", " + episode.getSize() + ")");
-
+    Long id = episodeService.create(episode);
     Files.move(tempFile, new File(uploadDirectory, id + ".mp3").toPath());
 
     response.redirect("/episodes/" + id);
