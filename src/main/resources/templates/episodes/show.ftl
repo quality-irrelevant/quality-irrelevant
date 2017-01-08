@@ -9,8 +9,8 @@
              height="20"/>${episode.publishedOn}</time>
 </div>
 
-<audio controls>
-  <source src="${episode.url}" type='audio/mp3'>
+<audio controls preload="none">
+  <source src="${episode.url}" type="audio/mp3">
 </audio>
 
 <p class="description">${episode.description}</p>
