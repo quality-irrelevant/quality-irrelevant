@@ -7,12 +7,14 @@ import com.qualityirrelevant.web.routes.GetContact;
 import com.qualityirrelevant.web.routes.Index;
 import com.qualityirrelevant.web.routes.PostContact;
 import com.qualityirrelevant.web.routes.episodes.CreateEpisode;
+import com.qualityirrelevant.web.routes.episodes.EditEpisode;
 import com.qualityirrelevant.web.routes.episodes.IndexEpisode;
 import com.qualityirrelevant.web.routes.episodes.NewEpisode;
 import com.qualityirrelevant.web.routes.episodes.RssEpisode;
 import com.qualityirrelevant.web.routes.episodes.ShowEpisode;
 import com.qualityirrelevant.web.security.UnauthenticatedException;
 import com.qualityirrelevant.web.services.DatabaseService;
+import com.qualityirrelevant.web.services.EpisodeService;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import org.slf4j.Logger;
@@ -83,6 +85,8 @@ public class Application {
       new File(baseDirectory + "external/media/episodes/" + id7 + ".mp3").createNewFile();
     }
 
+    EpisodeService episodeService = new EpisodeService(databaseService);
+
     Spark.port(port);
     Spark.staticFiles.location("/static");
     Spark.staticFiles.externalLocation(baseDirectory + "external");
@@ -107,7 +111,8 @@ public class Application {
     get("/episodes", new IndexEpisode(freeMarkerEngine, databaseService, "episodes/index.ftl"));
     get("/episodes/new", new NewEpisode(freeMarkerEngine, "episodes/new.ftl"));
     post("/episodes", new CreateEpisode(freeMarkerEngine, databaseService, "episodes/new.ftl"));
-    get("/episodes/:id", new ShowEpisode(freeMarkerEngine, databaseService, "episodes/show.ftl"));
+    get("/episodes/:id/edit", new EditEpisode(freeMarkerEngine, episodeService, "episodes/edit.ftl"));
+    get("/episodes/:id", new ShowEpisode(freeMarkerEngine, episodeService, "episodes/show.ftl"));
     get("/rss.xml", new RssEpisode(freeMarkerEngine, databaseService, "rss.ftl"));
   }
 }

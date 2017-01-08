@@ -6,6 +6,7 @@ import org.flywaydb.core.Flyway;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseService {
@@ -17,26 +18,32 @@ public class DatabaseService {
     flyway.migrate();
   }
 
-  public ResultSet select(String sql) throws Exception {
-    Connection connection = DriverManager.getConnection(connectionUrl());
-    Statement statement = connection.createStatement();
-    return statement.executeQuery(sql);
-  }
-
-  public Long insert(String sql) throws Exception {
-    Connection connection = DriverManager.getConnection(connectionUrl());
-
-    Statement statement = connection.createStatement();
-    statement.executeUpdate(sql);
-
-    ResultSet resultSet = statement.getGeneratedKeys();
-    if (resultSet != null && resultSet.next()) {
-      return resultSet.getLong(1);
+  public ResultSet select(String sql) {
+    try {
+      Connection connection = DriverManager.getConnection(connectionUrl());
+      Statement statement = connection.createStatement();
+      return statement.executeQuery(sql);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
     }
-    throw new Exception("Unable to retrieve generated id");
   }
 
-  private String connectionUrl(){
+  public Long insert(String sql) {
+    try {
+      Connection connection = DriverManager.getConnection(connectionUrl());
+      Statement statement = connection.createStatement();
+      statement.executeUpdate(sql);
+      ResultSet resultSet = statement.getGeneratedKeys();
+      if (resultSet != null && resultSet.next()) {
+        return resultSet.getLong(1);
+      }
+      throw new RuntimeException("Unable to retrieve generated id");
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private String connectionUrl() {
     return "jdbc:sqlite:" + Application.baseDirectory + "database.sqlite";
   }
 }
