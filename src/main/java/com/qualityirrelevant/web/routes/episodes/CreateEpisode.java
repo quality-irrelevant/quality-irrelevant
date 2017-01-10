@@ -49,6 +49,7 @@ public class CreateEpisode extends FreeMarkerRoute {
     episode.setDescription(multipartParam("description", request));
     episode.setDuration(mp3File.getLengthInSeconds());
     episode.setSize(tempFile.toFile().length());
+    episode.setNumber(multipartParam("number", request));
     Long id = episodeService.create(episode);
     Files.move(tempFile, new File(uploadDirectory, id + ".mp3").toPath());
 

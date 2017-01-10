@@ -1,5 +1,6 @@
 package com.qualityirrelevant.web.routes.episodes;
 
+import com.qualityirrelevant.web.models.Episode;
 import com.qualityirrelevant.web.routes.FreeMarkerRoute;
 import com.qualityirrelevant.web.security.Authentication;
 import spark.ModelAndView;
@@ -19,9 +20,8 @@ public class NewEpisode extends FreeMarkerRoute {
   public ModelAndView run(Request request, Response response) throws Exception {
     Authentication.authenticate(request);
 
-    Map<String, String> model = new HashMap<>();
-    model.put("name", "");
-    model.put("description", "");
+    Map<String, Object> model = new HashMap<>();
+    model.put("episode", new Episode());
     return new ModelAndView(model, getViewName());
   }
 }

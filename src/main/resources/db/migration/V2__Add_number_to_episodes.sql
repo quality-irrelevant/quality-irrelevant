@@ -1,0 +1,1 @@
+ALTER TABLE episodes ADD number INTEGER NOT NULL DEFAULT rowid;

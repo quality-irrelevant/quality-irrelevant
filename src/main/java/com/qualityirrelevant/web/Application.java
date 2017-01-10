@@ -71,19 +71,19 @@ public class Application {
     new File(baseDirectory + "external/media/episodes").mkdirs();
 
     if (args.length > 1 && args[1].equals("DEV")) {
-      Long id1 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size) VALUES ('Fuck Dumps R Us1', 'The one where Theos head falls off and Phil takes a big bite.', '2010-12-09 22:49:10.000', 54812, 65778909)");
+      Long id1 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size, number) VALUES ('Fuck Dumps R Us1', 'The one where Theos head falls off and Phil takes a big bite.', '2010-12-09 22:49:10.000', 54812, 65778909, 1)");
       new File(baseDirectory + "external/media/episodes/" + id1 + ".mp3").createNewFile();
-      Long id2 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size) VALUES ('Fuck Dumps R Us2', 'The one where Theos head falls off again', '2011-12-09 22:49:10.000', 54812, 65778909)");
+      Long id2 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size, number) VALUES ('Fuck Dumps R Us2', 'The one where Theos head falls off again', '2011-12-09 22:49:10.000', 54812, 65778909, 5)");
       new File(baseDirectory + "external/media/episodes/" + id2 + ".mp3").createNewFile();
-      Long id3 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size) VALUES ('Fuck Dumps R Us3', 'The one where Theos head falls off and Phil takes a big bite.', '2012-12-09 22:49:10.000', 54812, 65778909)");
+      Long id3 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size, number) VALUES ('Fuck Dumps R Us3', 'The one where Theos head falls off and Phil takes a big bite.', '2012-12-09 22:49:10.000', 54812, 65778909, 546789)");
       new File(baseDirectory + "external/media/episodes/" + id3 + ".mp3").createNewFile();
-      Long id4 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size) VALUES ('Fuck Dumps R Us4', 'The one where Theos head falls off and Phil takes a big bite.', '2013-12-09 22:49:10.000', 54812, 65778909)");
+      Long id4 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size, number) VALUES ('Fuck Dumps R Us4', 'The one where Theos head falls off and Phil takes a big bite.', '2013-12-09 22:49:10.000', 54812, 65778909, 2)");
       new File(baseDirectory + "external/media/episodes/" + id4 + ".mp3").createNewFile();
-      Long id5 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size) VALUES ('Fuck Dumps R Us5', 'The one where Theos head falls off and Phil takes a big bite.', '2014-12-09 22:49:10.000', 54813, 65778909)");
+      Long id5 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size, number) VALUES ('Fuck Dumps R Us5', 'The one where Theos head falls off and Phil takes a big bite.', '2014-12-09 22:49:10.000', 54813, 65778909, 13)");
       new File(baseDirectory + "external/media/episodes/" + id5 + ".mp3").createNewFile();
-      Long id6 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size) VALUES ('Fuck Dumps R Us6', 'The one where Theos head falls off and Phil takes a big bite.', '2015-12-09 22:49:10.000', 54812, 65778909)");
+      Long id6 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size, number) VALUES ('Fuck Dumps R Us6', 'The one where Theos head falls off and Phil takes a big bite.', '2015-12-09 22:49:10.000', 54812, 65778909, 4)");
       new File(baseDirectory + "external/media/episodes/" + id6 + ".mp3").createNewFile();
-      Long id7 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size) VALUES ('Fuck Dumps R Us7', 'The one where Theos head falls off and Phil takes a big bite.', '2016-12-09 22:49:10.000', 54812, 65778909)");
+      Long id7 = databaseService.insert("INSERT INTO episodes (name, description, published_on, duration, size, number) VALUES ('Fuck Dumps R Us7', 'The one where Theos head falls off and Phil takes a big bite.', '2016-12-09 22:49:10.000', 54812, 65778909, 8)");
       new File(baseDirectory + "external/media/episodes/" + id7 + ".mp3").createNewFile();
     }
 
@@ -105,14 +105,14 @@ public class Application {
       logger.error("error encountered", exception);
     });
 
-    get("/", new Index(freeMarkerEngine, databaseService, "index.ftl"));
+    get("/", new Index(freeMarkerEngine, episodeService, "index.ftl"));
     get("/art", new FreeMarkerRoute(freeMarkerEngine, "art.ftl"));
     get("/contact", new GetContact(freeMarkerEngine, "contact.ftl"));
     post("/contact", new PostContact(freeMarkerEngine, "contact.ftl"));
     get("/contact/success", new FreeMarkerRoute(freeMarkerEngine, "contact-success.ftl"));
 
-    get("/episodes", new IndexEpisode(freeMarkerEngine, databaseService, "episodes/index.ftl"));
-    get("/rss.xml", new RssEpisode(freeMarkerEngine, databaseService, "rss.ftl"));
+    get("/episodes", new IndexEpisode(freeMarkerEngine, episodeService, "episodes/index.ftl"));
+    get("/rss.xml", new RssEpisode(freeMarkerEngine, episodeService, "rss.ftl"));
     get("/episodes/new", new NewEpisode(freeMarkerEngine, "episodes/new.ftl"));
     post("/episodes", new CreateEpisode(freeMarkerEngine, episodeService, "episodes/new.ftl"));
     get("/episodes/:id/edit", new EditEpisode(freeMarkerEngine, episodeService, "episodes/edit.ftl"));

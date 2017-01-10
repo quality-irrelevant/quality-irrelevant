@@ -1,46 +1,28 @@
 package com.qualityirrelevant.web.routes.episodes;
 
-import com.qualityirrelevant.web.models.Episode;
 import com.qualityirrelevant.web.routes.FreeMarkerRoute;
-import com.qualityirrelevant.web.services.DatabaseService;
+import com.qualityirrelevant.web.services.EpisodeService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.template.freemarker.FreeMarkerEngine;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class RssEpisode extends FreeMarkerRoute {
-  private final DatabaseService databaseService;
+  private final EpisodeService episodeService;
 
-  public RssEpisode(FreeMarkerEngine freeMarkerEngine, DatabaseService databaseService, String viewName) {
+  public RssEpisode(FreeMarkerEngine freeMarkerEngine, EpisodeService episodeService, String viewName) {
     super(freeMarkerEngine, viewName);
-    this.databaseService = databaseService;
+    this.episodeService = episodeService;
   }
 
   @Override
   public ModelAndView run(Request request, Response response) throws Exception {
-
     response.type("text/xml");
-
-    ResultSet resultSet = databaseService.select("SELECT id, name, description, published_on, duration, size FROM episodes ORDER BY published_on DESC");
-    List<Episode> episodes = new ArrayList<>();
-    while (resultSet.next()) {
-      Episode episode = new Episode();
-      episode.setId(resultSet.getLong("id"));
-      episode.setName(resultSet.getString("name"));
-      episode.setDescription(resultSet.getString("description"));
-      episode.setPublishedOn(resultSet.getTimestamp("published_on"));
-      episode.setDuration(resultSet.getLong("duration"));
-      episode.setSize(resultSet.getLong("size"));
-      episodes.add(episode);
-    }
     Map<String, Object> model = new HashMap<>();
-    model.put("episodes", episodes);
+    model.put("episodes", episodeService.findAll());
     return new ModelAndView(model, getViewName());
   }
 }

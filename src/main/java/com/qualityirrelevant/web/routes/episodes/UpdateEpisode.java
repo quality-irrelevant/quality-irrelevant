@@ -26,6 +26,7 @@ public class UpdateEpisode extends FreeMarkerRoute {
 
     episode.setName(request.queryParams("name"));
     episode.setDescription(request.queryParams("description"));
+    episode.setNumber(request.queryParams("number"));
 
     episodeService.update(episode);
     response.redirect("/episodes/" + id);

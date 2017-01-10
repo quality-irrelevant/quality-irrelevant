@@ -12,6 +12,7 @@ public class Episode {
   private Timestamp publishedOn;
   private Long duration;
   private Long size;
+  private Long number;
 
   public Long getId() {
     return id;
@@ -46,7 +47,7 @@ public class Episode {
   }
 
   public String getTitle() {
-    return "#" + getId() + ": " + getName();
+    return "#" + getNumber() + ": " + getName();
   }
 
   public String getPublishedOn() {
@@ -92,5 +93,17 @@ public class Episode {
 
   public void setSize(Long size) {
     this.size = size;
+  }
+
+  public Long getNumber() {
+    return number;
+  }
+
+  public void setNumber(Long number) {
+    this.number = number;
+  }
+
+  public void setNumber(String number) {
+    this.number = Long.parseLong(number);
   }
 }
