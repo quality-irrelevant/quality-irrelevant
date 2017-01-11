@@ -33,7 +33,7 @@
         <itunes:duration>${episode.formattedDuration}</itunes:duration>
         <itunes:author>Quality Irrelevant</itunes:author>
         <itunes:explicit>yes</itunes:explicit>
-        <itunes:subtitle>${episode.subtitle}</itunes:subtitle>
+        <itunes:subtitle>${episode.description}</itunes:subtitle>
         <description>${episode.description}</description>
         <enclosure type="audio/mpeg" url="${episode.absoluteUrl}" length="${episode.size?c}"/>
         <itunes:image href="https://qualityirrelevant.com/media/02.PNG"/>

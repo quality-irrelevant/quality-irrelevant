@@ -79,14 +79,6 @@ public class Episode {
     this.duration = duration;
   }
 
-  public String getSubtitle() {
-    if (description.length() > 49) {
-      return description.substring(0, 48) + "…";
-    } else {
-      return description;
-    }
-  }
-
   public Long getSize() {
     return size;
   }
