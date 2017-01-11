@@ -6,13 +6,13 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 public class Episode {
-  private Long id;
-  private String name;
-  private String description;
-  private Timestamp publishedOn;
-  private Long duration;
-  private Long size;
-  private Long number;
+  private Long id = 0L;
+  private String name = "";
+  private String description = "";
+  private Timestamp publishedOn = new Timestamp(System.currentTimeMillis());
+  private Long duration = 0L;
+  private Long size = 0L;
+  private Long number = 0L;
 
   public Long getId() {
     return id;
@@ -104,6 +104,9 @@ public class Episode {
   }
 
   public void setNumber(String number) {
+    if ("".equals(number)) {
+      number = "0";
+    }
     this.number = Long.parseLong(number);
   }
 }
