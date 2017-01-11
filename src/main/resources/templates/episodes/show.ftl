@@ -16,9 +16,11 @@
 <p class="description">${episode.description}</p>
 
 <#if authenticated>
+  <a href="/episodes/${episode.id}/edit" class="button">Edit</a>
   <form method="post" action="/episodes/${episode.id}/delete">
     <input class="button" type="submit" value="Delete">
   </form>
 </#if>
+
 
 <#include "../include/footer.ftl">
