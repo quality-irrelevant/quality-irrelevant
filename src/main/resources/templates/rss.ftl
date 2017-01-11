@@ -14,6 +14,7 @@
       <itunes:email>qualityirrelevant@gmail.com</itunes:email>
     </itunes:owner>
     <itunes:author>Quality Irrelevant</itunes:author>
+    <itunes:keywords>quality, irrelevant, funny</itunes:keywords>
     <itunes:explicit>yes</itunes:explicit>
     <itunes:image href="https://qualityirrelevant.com/media/01.PNG"/>
     <image>
