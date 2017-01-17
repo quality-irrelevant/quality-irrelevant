@@ -28,7 +28,7 @@
       <li><a href="//twitter.com/QIrrelevant">@QIRRELEVANT</a></li>
     </ul>
     <p class="about-text">
-      A podcast for lovely boys.
+      A podcast for the dispositionally broken.
     </p>
     <p class="copyright">Copyright © Me</p>
   </nav>
