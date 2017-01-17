@@ -50,13 +50,17 @@ public class Episode {
     return "#" + getNumber() + ": " + getName();
   }
 
-  public String getPublishedOn() {
-    SimpleDateFormat formatter = new SimpleDateFormat("d MMM yyyy");
-    return formatter.format(publishedOn);
+  public Timestamp getPublishedOn() {
+    return publishedOn;
   }
 
   public void setPublishedOn(Timestamp publishedOn) {
     this.publishedOn = publishedOn;
+  }
+
+  public String getSimplePublishedOn() {
+    SimpleDateFormat formatter = new SimpleDateFormat("d MMM yyyy");
+    return formatter.format(publishedOn);
   }
 
   public String getFullPublishedOn() {

@@ -15,12 +15,14 @@ import com.qualityirrelevant.web.routes.episodes.RssEpisode;
 import com.qualityirrelevant.web.routes.episodes.ShowEpisode;
 import com.qualityirrelevant.web.routes.episodes.UpdateEpisode;
 import com.qualityirrelevant.web.security.UnauthenticatedException;
-import com.qualityirrelevant.web.services.DatabaseService;
 import com.qualityirrelevant.web.services.EpisodeService;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
+import org.flywaydb.core.Flyway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.sqlite.SQLiteDataSource;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -59,8 +61,14 @@ public class Application {
       baseUrl = "https://dev.qualityirrelevant.com:" + port;
     }
 
-    DatabaseService databaseService = new DatabaseService();
-    databaseService.intialize();
+    Class.forName("org.sqlite.JDBC");
+    Flyway flyway = new Flyway();
+    flyway.setDataSource("jdbc:sqlite:" + Application.baseDirectory + "database.sqlite", null, null);
+    flyway.migrate();
+
+    SQLiteDataSource dataSource = new SQLiteDataSource();
+    dataSource.setUrl("jdbc:sqlite:" + Application.baseDirectory + "database.sqlite");
+    JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
     FreeMarkerEngine freeMarkerEngine = new FreeMarkerEngine();
     Configuration freeMarkerConfiguration = new Configuration();
@@ -76,7 +84,7 @@ public class Application {
       }
     }
 
-    EpisodeService episodeService = new EpisodeService(databaseService);
+    EpisodeService episodeService = new EpisodeService(jdbcTemplate);
 
     Spark.port(port);
     Spark.staticFiles.location("/static");

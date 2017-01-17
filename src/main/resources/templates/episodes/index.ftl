@@ -12,7 +12,7 @@
     <img class="thumbnail" src="/img/icon_empty.png" width="250" height="250"/>
     <div class="post-info">
       <h2>${episode.title}</h2>
-      <time>${episode.publishedOn}</time>
+      <time>${episode.simplePublishedOn}</time>
     </div>
   </a>
 </#list>

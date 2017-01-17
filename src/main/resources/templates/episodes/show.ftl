@@ -6,7 +6,7 @@
 <div class="post-info">
   <h2>${episode.title}</h2>
   <time><img class="icon" src="/img/calendar.png" width="20"
-             height="20"/>${episode.publishedOn}</time>
+             height="20"/>${episode.simplePublishedOn}</time>
 </div>
 
 <audio controls preload="none">

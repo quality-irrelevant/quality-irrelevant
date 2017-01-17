@@ -9,7 +9,7 @@
       <a href="/episodes/${episode.id}"><h2 class="episode-title">${episode.title}</h2></a>
 
       <time><img class="icon" src="/img/calendar.png" width="20"
-                 height="20"/>${episode.publishedOn}
+                 height="20"/>${episode.simplePublishedOn}
       </time>
 
       <audio controls preload="none">
