@@ -1,6 +1,6 @@
 <#-- @ftlvariable name="episodes" type="java.util.Collection<com.qualityirrelevant.web.models.Episode>" -->
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:itunes="https://www.itunes.com/dtds/podcast-1.0.dtd">
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
   <channel>
     <title>Quality Irrelevant</title>
     <link>https://qualityirrelevant.com</link>
