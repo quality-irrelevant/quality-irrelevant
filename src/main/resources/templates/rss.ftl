@@ -16,9 +16,9 @@
     <itunes:author>Quality Irrelevant</itunes:author>
     <itunes:keywords>quality, irrelevant, funny</itunes:keywords>
     <itunes:explicit>yes</itunes:explicit>
-    <itunes:image href="https://qualityirrelevant.com/media/01.PNG"/>
+    <itunes:image href="https://qualityirrelevant.com/media/images/01.png"/>
     <image>
-      <url>https://qualityirrelevant.com/media/01.PNG</url>
+      <url>https://qualityirrelevant.com/media/images/01.png</url>
       <title>Quality Irrelevant</title>
       <link>https://qualityirrelevant.com</link>
     </image>
@@ -36,7 +36,7 @@
         <itunes:subtitle>${episode.description}</itunes:subtitle>
         <description>${episode.description}</description>
         <enclosure type="audio/mpeg" url="${episode.absoluteUrl}" length="${episode.size?c}"/>
-        <itunes:image href="https://qualityirrelevant.com/media/02.PNG"/>
+        <itunes:image href="https://qualityirrelevant.com/media/images/02.png"/>
       </item>
     </#list>
   </channel>
