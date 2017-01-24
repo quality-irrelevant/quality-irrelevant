@@ -1,5 +1,6 @@
 package com.qualityirrelevant.web;
 
+import com.icegreen.greenmail.util.DummySSLSocketFactory;
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetup;
 import com.qualityirrelevant.web.routes.FreeMarkerRoute;
@@ -28,6 +29,7 @@ import spark.Spark;
 import spark.template.freemarker.FreeMarkerEngine;
 
 import java.io.File;
+import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,8 +39,13 @@ import static spark.Spark.post;
 public class Application {
   public static String baseDirectory = "";
   public static String baseUrl = "https://qualityirrelevant.com";
-  public static Integer port = 4567;
+  public static String port = "4567";
   public static String authorizedIp = "";
+  public static String smtpUsername = "qualityirrelevant@gmail.com";
+  public static String smtpPassword = "";
+  public static String smtpHost = "smtp.gmail.com";
+  public static String smtpPort = "465";
+
   private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
   public static void main(String[] args) throws Exception {
@@ -46,18 +53,31 @@ public class Application {
       authorizedIp = args[0];
     }
 
+    if (args.length > 2) {
+      smtpPassword = args[2];
+    }
+
     if (args.length > 1 && args[1].equals("DEV")) {
       logger.info("Runnin' in DEV environment");
 
       baseDirectory = "target/";
       baseUrl = "http://localhost:" + port;
+      smtpHost = "localhost";
 
-      GreenMail greenMail = new GreenMail(ServerSetup.SMTP);
+      Security.setProperty("ssl.SocketFactory.provider", DummySSLSocketFactory.class.getName());
+
+      GreenMail greenMail = new GreenMail(ServerSetup.SMTPS);
+      greenMail.setUser(smtpUsername, smtpPassword).create();
       greenMail.start();
+    } else if (args.length > 1 && args[1].equals("PREPROD_LOCAL")) {
+      logger.info("Runnin' in PREPROD LOCAL environment");
+
+      baseDirectory = "target/";
+      baseUrl = "http://localhost:" + port;
     } else if (args.length > 1 && args[1].equals("PREPROD")) {
       logger.info("Runnin' in PREPROD environment");
 
-      port = 4577;
+      port = "4577";
       baseUrl = "https://dev.qualityirrelevant.com:" + port;
     }
 
@@ -86,7 +106,7 @@ public class Application {
 
     EpisodeService episodeService = new EpisodeService(jdbcTemplate);
 
-    Spark.port(port);
+    Spark.port(Integer.parseInt(port));
     Spark.staticFiles.location("/static");
     Spark.staticFiles.externalLocation(baseDirectory + "external");
 
