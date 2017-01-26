@@ -78,7 +78,7 @@ public class Application {
       logger.info("Runnin' in PREPROD environment");
 
       port = "4577";
-      baseUrl = "https://dev.qualityirrelevant.com:" + port;
+      baseUrl = "https://preprod.qualityirrelevant.com:" + port;
     }
 
     Class.forName("org.sqlite.JDBC");
