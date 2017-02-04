@@ -1,7 +1,5 @@
 package com.qualityirrelevant.web.models;
 
-import com.qualityirrelevant.web.Application;
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
@@ -13,6 +11,12 @@ public class Episode {
   private Long duration = 0L;
   private Long size = 0L;
   private Long number = 0L;
+
+  private final String baseUrl;
+
+  public Episode(String baseUrl) {
+    this.baseUrl = baseUrl;
+  }
 
   public Long getId() {
     return id;
@@ -43,7 +47,7 @@ public class Episode {
   }
 
   public String getAbsoluteUrl() {
-    return Application.baseUrl + getUrl();
+    return baseUrl + getUrl();
   }
 
   public String getTitle() {

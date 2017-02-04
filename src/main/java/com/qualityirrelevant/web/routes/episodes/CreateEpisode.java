@@ -1,7 +1,7 @@
 package com.qualityirrelevant.web.routes.episodes;
 
 import com.mpatric.mp3agic.Mp3File;
-import com.qualityirrelevant.web.Application;
+import com.qualityirrelevant.web.config.ApplicationProperties;
 import com.qualityirrelevant.web.models.Episode;
 import com.qualityirrelevant.web.routes.FreeMarkerRoute;
 import com.qualityirrelevant.web.security.Authentication;
@@ -24,27 +24,31 @@ import java.nio.file.StandardCopyOption;
 
 public class CreateEpisode extends FreeMarkerRoute {
   private final EpisodeService episodeService;
+  private final ApplicationProperties applicationProperties;
+  private final Authentication authentication;
 
-  public CreateEpisode(FreeMarkerEngine freeMarkerEngine, EpisodeService episodeService, String viewName) {
+  public CreateEpisode(ApplicationProperties applicationProperties, Authentication authentication, FreeMarkerEngine freeMarkerEngine, EpisodeService episodeService, String viewName) {
     super(freeMarkerEngine, viewName);
+    this.applicationProperties = applicationProperties;
+    this.authentication = authentication;
     this.episodeService = episodeService;
   }
 
   @Override
   public ModelAndView run(Request request, Response response) throws Exception {
-    Authentication.authenticate(request);
+    authentication.authenticate(request);
 
     MultipartConfigElement configElement = new MultipartConfigElement(System.getenv("java.io.tmpdir"));
     request.attribute("org.eclipse.jetty.multipartConfig", configElement);
 
-    File uploadDirectory = new File(Application.baseDirectory + "external/media/episodes");
+    File uploadDirectory = new File(applicationProperties.getBaseDirectory() + "external/media/episodes");
     Path tempFile = Files.createTempFile(uploadDirectory.toPath(), "", "");
     InputStream file = request.raw().getPart("file").getInputStream();
     Files.copy(file, tempFile, StandardCopyOption.REPLACE_EXISTING);
 
     Mp3File mp3File = new Mp3File(tempFile.toFile());
 
-    Episode episode = new Episode();
+    Episode episode = new Episode(applicationProperties.getBaseUrl());
     episode.setName(multipartParam("name", request));
     episode.setDescription(multipartParam("description", request));
     episode.setDuration(mp3File.getLengthInSeconds());

@@ -1,5 +1,6 @@
 package com.qualityirrelevant.web.routes;
 
+import com.qualityirrelevant.web.config.ApplicationProperties;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -16,14 +17,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import static com.qualityirrelevant.web.Application.smtpHost;
-import static com.qualityirrelevant.web.Application.smtpPassword;
-import static com.qualityirrelevant.web.Application.smtpPort;
-import static com.qualityirrelevant.web.Application.smtpUsername;
-
 public class PostContact extends FreeMarkerRoute {
-  public PostContact(FreeMarkerEngine freeMarkerEngine, String viewName) {
+  private final ApplicationProperties applicationProperties;
+
+  public PostContact(ApplicationProperties applicationProperties, FreeMarkerEngine freeMarkerEngine, String viewName) {
     super(freeMarkerEngine, viewName);
+    this.applicationProperties = applicationProperties;
   }
 
   @Override
@@ -64,17 +63,17 @@ public class PostContact extends FreeMarkerRoute {
     String body = "Name: " + name + "<br>Email: " + email + "<br>Message: " + message;
 
     Properties properties = new Properties();
-    properties.setProperty("mail.smtp.host", smtpHost);
+    properties.setProperty("mail.smtp.host", applicationProperties.getSmtpHost());
     properties.setProperty("mail.smtp.auth", "true");
     properties.setProperty("mail.smtp.starttls.enable", "true");
-    properties.setProperty("mail.smtp.socketFactory.port", smtpPort);
+    properties.setProperty("mail.smtp.socketFactory.port", applicationProperties.getSmtpPort());
     properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-    properties.setProperty("mail.smtp.port", smtpPort);
+    properties.setProperty("mail.smtp.port", applicationProperties.getSmtpPort());
 
     Session session = Session.getInstance(properties,
         new javax.mail.Authenticator() {
           protected PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(smtpUsername, smtpPassword);
+            return new PasswordAuthentication(applicationProperties.getSmtpUsername(), applicationProperties.getSmtpPassword());
           }
         });
 
@@ -97,7 +96,7 @@ public class PostContact extends FreeMarkerRoute {
     return null;
   }
 
-  private static String trim(String x) {
+  private String trim(String x) {
     return x == null ? "" : x.trim();
   }
 }

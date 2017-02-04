@@ -11,15 +11,17 @@ import spark.template.freemarker.FreeMarkerEngine;
 
 public class UpdateEpisode extends FreeMarkerRoute {
   private final EpisodeService episodeService;
+  private final Authentication authentication;
 
-  public UpdateEpisode(FreeMarkerEngine freeMarkerEngine, EpisodeService episodeService, String viewName) {
+  public UpdateEpisode(Authentication authentication, FreeMarkerEngine freeMarkerEngine, EpisodeService episodeService, String viewName) {
     super(freeMarkerEngine, viewName);
+    this.authentication = authentication;
     this.episodeService = episodeService;
   }
 
   @Override
   public ModelAndView run(Request request, Response response) throws Exception {
-    Authentication.authenticate(request);
+    authentication.authenticate(request);
     String id = request.params(":id");
 
     Episode episode = episodeService.find(id);

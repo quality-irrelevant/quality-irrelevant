@@ -1,24 +1,29 @@
 package com.qualityirrelevant.web.services;
 
+import com.qualityirrelevant.web.config.ApplicationProperties;
 import com.qualityirrelevant.web.models.Episode;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class EpisodeService {
   private final JdbcTemplate jdbcTemplate;
+  private final ApplicationProperties applicationProperties;
 
-  public EpisodeService(JdbcTemplate jdbcTemplate) {
+  public EpisodeService(ApplicationProperties applicationProperties, JdbcTemplate jdbcTemplate) {
+    this.applicationProperties = applicationProperties;
     this.jdbcTemplate = jdbcTemplate;
   }
 
   private Episode build(ResultSet resultSet, int rowNum) throws SQLException {
-    Episode episode = new Episode();
+    Episode episode = new Episode(applicationProperties.getBaseUrl());
     episode.setId(resultSet.getLong("id"));
     episode.setName(resultSet.getString("name"));
     episode.setDescription(resultSet.getString("description"));

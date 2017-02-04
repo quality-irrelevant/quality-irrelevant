@@ -1,6 +1,6 @@
 package com.qualityirrelevant.web.routes.episodes;
 
-import com.qualityirrelevant.web.Application;
+import com.qualityirrelevant.web.config.ApplicationProperties;
 import com.qualityirrelevant.web.models.Episode;
 import com.qualityirrelevant.web.security.Authentication;
 import com.qualityirrelevant.web.services.EpisodeService;
@@ -13,16 +13,20 @@ import java.nio.file.Files;
 
 public class DeleteEpisode implements Route {
   private final EpisodeService episodeService;
+  private final ApplicationProperties applicationProperties;
+  private final Authentication authentication;
 
-  public DeleteEpisode(EpisodeService episodeService) {
+  public DeleteEpisode(ApplicationProperties applicationProperties, Authentication authentication, EpisodeService episodeService) {
+    this.applicationProperties = applicationProperties;
+    this.authentication = authentication;
     this.episodeService = episodeService;
   }
 
   @Override
   public Object handle(Request request, Response response) throws Exception {
-    Authentication.authenticate(request);
+    authentication.authenticate(request);
     String id = request.params(":id");
-    File uploadDirectory = new File(Application.baseDirectory + "external/media/episodes");
+    File uploadDirectory = new File(applicationProperties.getBaseDirectory() + "external/media/episodes");
     Episode episode = episodeService.find(id);
     Files.deleteIfExists(new File(uploadDirectory, id + ".mp3").toPath());
     episodeService.delete(episode);

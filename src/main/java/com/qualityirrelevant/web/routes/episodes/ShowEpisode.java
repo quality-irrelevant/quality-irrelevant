@@ -13,9 +13,11 @@ import java.util.Map;
 
 public class ShowEpisode extends FreeMarkerRoute {
   private final EpisodeService episodeService;
+  private final Authentication authentication;
 
-  public ShowEpisode(FreeMarkerEngine freeMarkerEngine, EpisodeService episodeService, String viewName) {
+  public ShowEpisode(Authentication authentication, FreeMarkerEngine freeMarkerEngine, EpisodeService episodeService, String viewName) {
     super(freeMarkerEngine, viewName);
+    this.authentication = authentication;
     this.episodeService = episodeService;
   }
 
@@ -24,7 +26,7 @@ public class ShowEpisode extends FreeMarkerRoute {
     String id = request.params(":id");
     Map<String, Object> model = new HashMap<>();
     model.put("episode", episodeService.find(id));
-    model.put("authenticated", Authentication.isAuthenticated(request));
+    model.put("authenticated", authentication.isAuthenticated(request));
     return new ModelAndView(model, getViewName());
   }
 }
