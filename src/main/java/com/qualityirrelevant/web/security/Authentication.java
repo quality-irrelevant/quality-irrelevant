@@ -3,7 +3,8 @@ package com.qualityirrelevant.web.security;
 import com.qualityirrelevant.web.config.ApplicationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import spark.Request;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class Authentication {
   private static final Logger logger = LoggerFactory.getLogger(Authentication.class);
@@ -13,10 +14,10 @@ public class Authentication {
     this.applicationProperties = applicationProperties;
   }
 
-  public void authenticate(Request request) {
+  public void authenticate(HttpServletRequest request) {
     String authorizedIp = applicationProperties.getAuthorizedIp();
-    String currentIp = request.ip();
-    String forwardedIp = request.headers("X-Forwarded-For");
+    String currentIp = request.getRemoteAddr();
+    String forwardedIp = request.getHeader("X-Forwarded-For");
 
     logger.info("Authorised IP: {}; Current IP: {}; Forwarded IP: {}", authorizedIp,
         currentIp, forwardedIp);
@@ -30,7 +31,7 @@ public class Authentication {
     }
   }
 
-  public Boolean isAuthenticated(Request request) {
+  public Boolean isAuthenticated(HttpServletRequest request) {
     try {
       authenticate(request);
     } catch (UnauthenticatedException e) {

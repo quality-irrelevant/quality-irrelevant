@@ -18,18 +18,17 @@ public class ApplicationConfig {
     ApplicationProperties applicationProperties = new ApplicationProperties();
 
     applicationProperties.setAuthorizedIp(env.getRequiredProperty("authorizedIp"));
-    applicationProperties.setSmtpPassword(env.getProperty("smtpPassword"));
+    applicationProperties.setSmtpPassword(env.getProperty("smtpPassword", ""));
 
     if (env.acceptsProfiles("DEV")) {
-      applicationProperties.setBaseDirectory("target/");
-      applicationProperties.setBaseUrl("http://localhost:" + applicationProperties.getPort());
+
+      applicationProperties.setBaseUrl("http://localhost:" + env.getRequiredProperty("server.port"));
       applicationProperties.setSmtpHost("localhost");
     } else if (env.acceptsProfiles("PREPROD_LOCAL")) {
-      applicationProperties.setBaseDirectory("target/");
-      applicationProperties.setBaseUrl("http://localhost:" + applicationProperties.getPort());
+
+      applicationProperties.setBaseUrl("http://localhost:" + env.getRequiredProperty("server.port"));
     } else if (env.acceptsProfiles("PREPROD")) {
-      applicationProperties.setPort("4577");
-      applicationProperties.setBaseUrl("https://preprod.qualityirrelevant.com:" + applicationProperties.getPort());
+      applicationProperties.setBaseUrl("https://preprod.qualityirrelevant.com:" + env.getRequiredProperty("server.port"));
     }
     return applicationProperties;
   }

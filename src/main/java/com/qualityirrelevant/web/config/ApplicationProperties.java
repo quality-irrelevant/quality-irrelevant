@@ -1,7 +1,6 @@
 package com.qualityirrelevant.web.config;
 
 public class ApplicationProperties {
-  private String baseDirectory = "";
   private String baseUrl = "https://qualityirrelevant.com";
   private String port = "4567";
   private String authorizedIp = "";
@@ -10,28 +9,12 @@ public class ApplicationProperties {
   private String smtpHost = "smtp.gmail.com";
   private String smtpPort = "465";
 
-  public String getBaseDirectory() {
-    return baseDirectory;
-  }
-
-  public void setBaseDirectory(String baseDirectory) {
-    this.baseDirectory = baseDirectory;
-  }
-
   public String getBaseUrl() {
     return baseUrl;
   }
 
   public void setBaseUrl(String baseUrl) {
     this.baseUrl = baseUrl;
-  }
-
-  public String getPort() {
-    return port;
-  }
-
-  public void setPort(String port) {
-    this.port = port;
   }
 
   public String getAuthorizedIp() {

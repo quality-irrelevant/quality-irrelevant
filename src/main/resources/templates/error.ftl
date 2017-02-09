@@ -2,6 +2,6 @@
 
 <h1>Error!</h1>
 
-<p>${errorMessage}</p>
+<p>${error}</p>
 
 <#include "include/footer.ftl">

@@ -1,10 +1,12 @@
-package com.qualityirrelevant.web.routes;
+package com.qualityirrelevant.web.controllers;
 
 import com.qualityirrelevant.web.config.ApplicationProperties;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import spark.template.freemarker.FreeMarkerEngine;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -13,23 +15,35 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
 
-public class PostContact extends FreeMarkerRoute {
+import static javax.servlet.http.HttpServletResponse.SC_SERVICE_UNAVAILABLE;
+
+@Controller
+@RequestMapping("/contact")
+public class ContactController {
   private final ApplicationProperties applicationProperties;
 
-  public PostContact(ApplicationProperties applicationProperties, FreeMarkerEngine freeMarkerEngine, String viewName) {
-    super(freeMarkerEngine, viewName);
+  public ContactController(ApplicationProperties applicationProperties) {
     this.applicationProperties = applicationProperties;
   }
 
-  @Override
-  public ModelAndView run(Request request, Response response) throws Exception {
-    String name = trim(request.queryParams("name"));
-    String email = trim(request.queryParams("email"));
-    String message = trim(request.queryParams("message"));
+  @GetMapping
+  public String add(Model model) {
+    model.addAttribute("name", "");
+    model.addAttribute("email", "");
+    model.addAttribute("message", "");
+    model.addAttribute("nameError", "");
+    model.addAttribute("emailError", "");
+    model.addAttribute("messageError", "");
+    return "contact";
+  }
+
+  @PostMapping
+  public String create(Model model, HttpServletResponse response, @RequestParam String name,
+                       @RequestParam String email, @RequestParam String message)
+      throws Exception {
     Boolean hasError = false;
     String nameError = "";
     String emailError = "";
@@ -48,14 +62,13 @@ public class PostContact extends FreeMarkerRoute {
       messageError = "Must not be fucking empty.";
     }
     if (hasError) {
-      Map<String, String> model = new HashMap<>();
-      model.put("name", name);
-      model.put("email", email);
-      model.put("message", message);
-      model.put("nameError", nameError);
-      model.put("emailError", emailError);
-      model.put("messageError", messageError);
-      return new ModelAndView(model, getViewName());
+      model.addAttribute("name", name);
+      model.addAttribute("email", email);
+      model.addAttribute("message", message);
+      model.addAttribute("nameError", nameError);
+      model.addAttribute("emailError", emailError);
+      model.addAttribute("messageError", messageError);
+      return "contact";
     }
     InternetAddress to = new InternetAddress("qualityirrelevant@gmail.com");
     InternetAddress from = new InternetAddress("qualityirrelevant@gmail.com");
@@ -85,18 +98,17 @@ public class PostContact extends FreeMarkerRoute {
     try {
       Transport.send(mimeMessage);
     } catch (MessagingException e) {
-      Map<String, String> model = new HashMap<>();
-      model.put("errorMessage",
+      model.addAttribute("error",
           "Unable to send your message. Fuck you. It has something to do with: "
               + e.getMessage());
-      response.status(503);
-      return new ModelAndView(model, "error.ftl");
+      response.setStatus(SC_SERVICE_UNAVAILABLE);
+      return "error";
     }
-    response.redirect("/contact/success");
-    return null;
+    return "redirect:/contact/success";
   }
 
-  private String trim(String x) {
-    return x == null ? "" : x.trim();
+  @GetMapping("/success")
+  public String success() {
+    return  "contact-success";
   }
 }

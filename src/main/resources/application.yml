@@ -1,0 +1,28 @@
+app:
+  base-directory:
+server:
+  port: 4567
+spring:
+  resources:
+    static-locations: classpath:/static/,file:${app.base-directory}external/
+
+---
+
+spring:
+  profiles: DEV
+app:
+  base-directory: target/
+
+---
+
+spring:
+  profiles: PREPROD_LOCAL
+app:
+  base-directory: target/
+
+---
+
+spring:
+  profiles: PREPROD
+server:
+  port: 4577
